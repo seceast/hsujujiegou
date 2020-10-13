@@ -2,7 +2,7 @@
  * @Author: seceast
  * @Date: 2020-10-13 10:55:09
  * @LastEditors: seceast
- * @LastEditTime: 2020-10-13 15:18:47
+ * @LastEditTime: 2020-10-13 17:35:19
  */ 
 
 #include <stdio.h>
@@ -22,11 +22,11 @@ typedef struct DNode
 //头插法
 void CreateListF(DLinkNode *&L,ElemType a[],int n){
     DLinkNode *s;
-    L=(DLinkNode *)malloc(sizeof(DLinkNode));       //创建头节点
+    L=(DLinkNode *)malloc(sizeof(DLinkNode));       //创建头结点
     L->prior = L->next=NULL;                        //前后指针域置为空
     for(int i= 0;i<n;i++){
         s=(DLinkNode *)malloc(sizeof(DLinkNode));
-        s->data=a[i];                               //创建数据节点
+        s->data=a[i];                               //创建数据结点
         s->next=L->next;
         if(L->next!=NULL)
             L->next->prior=s;
@@ -39,7 +39,7 @@ void CreateListF(DLinkNode *&L,ElemType a[],int n){
 void CreateListR(DLinkNode *&L,ElemType a[],int n){
     DLinkNode *s,*r;
     L=(DLinkNode *)malloc(sizeof(DLinkNode));
-    r=L;                                           //r始终指向尾节点，开始时指向头节点
+    r=L;                                           //r始终指向尾结点，开始时指向头结点
     for(int i=0;i<n;i++){
         s=(DLinkNode *)malloc(sizeof(DLinkNode));
         s->data=a[i];
@@ -52,9 +52,9 @@ void CreateListR(DLinkNode *&L,ElemType a[],int n){
 //插入
 bool ListIsert(DLinkNode *& L,int i,ElemType e){
     int j = 0;
-    DLinkNode *p=L,*s;
+    DLinkNode *p=L,*s;                              //p指针直线头结点
     if(i<0)return false;
-    while (j<i-1 && p!=NULL)
+    while (j<i-1 && p!=NULL)                        //查找地i-1个结点
     {
         j++;
         p=p->next;
@@ -62,7 +62,7 @@ bool ListIsert(DLinkNode *& L,int i,ElemType e){
     if(p==NULL)return false;
     else
     {
-        s=(DLinkNode *)malloc(sizeof(DLinkNode));
+        s=(DLinkNode *)malloc(sizeof(DLinkNode));   //创建新结点s
         s->data=e;
         s->next=p->next;
         if(p->next!=NULL)
@@ -71,5 +71,68 @@ bool ListIsert(DLinkNode *& L,int i,ElemType e){
         p->next=s;
         return true;
     }
+}
+
+//删除
+bool ListDelete(DLinkNode *& L, int i,ElemType &e){
+    int j=0;
+    DLinkNode *p=L,*q;
+    if(i<0) return false;
+    while (j<i-1 && p!=NULL)
+    {
+        j++;
+        p=p->next;
+    }
+    if(p=NULL) return false;
     
+    else
+    {
+        q=p->next;
+        if (q==NULL)  return false;
+        e=q->data;
+        p->next=q->next;                            //删除q结点
+        if(q->next!=NULL)                           //若q结点存在，则修改其前驱指针
+            q->next->prior=p;
+        free(q);
+        return true;
+    }
+}
+
+//逆序
+void Reverse(DLinkNode *& L){
+    DLinkNode *p=L, *q;
+    p->next=L->next;
+    L->next=NULL;                          //构造只有头结点的链表
+    while (p!=NULL)                        //扫描L的所有数据
+    {
+        q=p->next;
+        p->next=L->next;                   //采用头插法将p结点插入链表
+        if(L->next!=NULL)
+            L->next->prior=p;
+        L->next=p;                         //将新结点作为首结点
+        p->prior=L;
+        p=q;                               //让p重新指向起后继结点
+    }
+}
+
+//是元素递增有序排列
+void sort(DLinkNode *& L){
+    DLinkNode *p,*pre,*q;
+    p=L->next->next;                       //p指向L的第2个结点                    
+    L->next->next=NULL;
+    while (p!=NULL)
+    {
+        q=p->next;                         //q保存p结点的后继结点
+        pre=L;                             //从有序表开头进行比较，pre指向p的前驱结点
+        while (pre->next!=NULL && 
+               pre->next->data<p->data)
+            pre=pre->next;                 //在有序表中找插入结点的前驱结点pre
+        p->next=pre->next;                 //在pre结点之后插入结点p
+        if(pre->next!=NULL)
+            pre->next->prior=p;
+        pre->next=p;
+        p->prior=pre;
+        p=q;
+        
+    }
 }
