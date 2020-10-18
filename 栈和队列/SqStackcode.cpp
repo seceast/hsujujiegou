@@ -2,7 +2,7 @@
  * @Author: seceast
  * @Date: 2020-10-15 11:14:32
  * @LastEditors: seceast
- * @LastEditTime: 2020-10-18 10:27:54
+ * @LastEditTime: 2020-10-18 10:32:06
  */ 
 
 
@@ -29,9 +29,9 @@ void InitStack(SqStack *& s){
 //销毁  free（s）
 //判断空 return(s->top==-1)
 
-//进栈 
+//进栈 ：先将顶指针加1 再将增加元素放入顶指针
 bool Push(SqStack *& s,ElemType e){
-    if(s->top==MaxSize -1);           //栈满
+    if(s->top==MaxSize -1);           //栈满 也是栈蛮的条件
         return false;
     s->top++;                         //栈顶指针加1
     s->data[s->top] = e;              //元素额放置栈顶
