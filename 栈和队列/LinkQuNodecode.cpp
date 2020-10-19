@@ -2,7 +2,7 @@
  * @Author: seceast
  * @Date: 2020-10-19 15:39:44
  * @LastEditors: seceast
- * @LastEditTime: 2020-10-19 16:18:02
+ * @LastEditTime: 2020-10-21 10:36:53
  */ 
 
 #include <stdio.h>
@@ -62,6 +62,16 @@ void enQueue(LinkQuNode *& q,ElemType e){
 }
 
 //出队
-void deQueue(LinkQuNode *& q,ElemType &e){
-    
+bool  deQueue(LinkQuNode *& q,ElemType &e){
+    DataNode *t;
+    if(q->rear==NULL)               //原队列为空，返回false
+        return false;
+    t=q->front;                     //t指向首结点
+    if(q->front==q->rear)           //原来对列中只有一个数据结点时
+        q->front=q->rear=NULL;
+    else                            //有两个或以上结点时
+        q->front=q->front->next;
+    e=t->data;
+    free(t);
+    return true;
 }
