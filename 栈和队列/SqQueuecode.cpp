@@ -2,7 +2,7 @@
  * @Author: seceast
  * @Date: 2020-10-19 14:26:12
  * @LastEditors: seceast
- * @LastEditTime: 2020-10-19 15:21:50
+ * @LastEditTime: 2020-10-22 10:13:57
  */ 
 
 //队列，先进先出，进入端叫队尾，删除端叫队头
@@ -25,7 +25,7 @@ typedef struct {
 
 //初始化,将头尾指针设为初始状态（-1）
 void InitQueue(SqQueue *& q){
-    q = (SqQueue *)malloc(sizeof(sqQueue));
+    q = (SqQueue *)malloc(sizeof(SqQueue));
     q->front = q->rear = -1;
 }
 
