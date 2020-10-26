@@ -2,7 +2,7 @@
  * @Author: seceast
  * @Date: 2020-10-12 10:13:57
  * @LastEditors: seceast
- * @LastEditTime: 2020-10-13 17:45:15
+ * @LastEditTime: 2020-10-26 16:12:07
  */ 
 #include <stdio.h>
 #include <stdlib.h>
@@ -122,3 +122,20 @@ void Reverse(LinkNode *& L){
     }
     
 } 
+//有一个带头结点的单链表L（至少有一个数据结点），
+//设计一个算法使其元素递增有序排列
+void sort(LinkNode *&L)
+{
+    LinkNode *p,*pre,*q;
+    p=L->next->next;		//p指向L的第2个数据结点
+    L->next->next=NULL;	//构造只含一个数据结点的有序表
+    while (p!=NULL) {
+        q=p->next;		//q保存*p结点后继结点的指针
+        pre=L;  		//从有序表开头进行比较，pre指向插入*p的前驱结点
+	    while (pre->next!=NULL && pre->next->data<p->data)
+	        pre=pre->next;	//在有序表中找插入*p的前驱结点*pre
+	p->next=pre->next;
+	pre->next=p;
+	p=q;			//扫描原单链表余下的结点
+    }
+}
