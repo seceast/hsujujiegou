@@ -2,7 +2,7 @@
  * @Author: seceast
  * @Date: 2020-10-22 10:20:13
  * @LastEditors: seceast
- * @LastEditTime: 2020-10-26 15:05:48
+ * @LastEditTime: 2020-10-27 09:58:32
  */ 
 
 
@@ -23,7 +23,7 @@ typedef struct Node{
 
 //创建二叉树
 void CreatBTree(BTNOde *& b, char *str){
-    BTNode *st[MaxSize], *p;
+    BTNode *St[MaxSize], *p;
     int top=-1,k,j=0;
     char ch;
     b=NULL;
