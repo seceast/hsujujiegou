@@ -117,3 +117,15 @@ bool ListInsert(SqList * &L,int i,ElemType e){
     L->length++;
     return true;
 }
+
+//删除顺序表中所有值为x的元素
+void delnode1(SqList *&A, ElemType x)
+{    int k=0,i;	  //k记录值不等于x的元素个数
+     for (i=0;i<A->length;i++)
+           if (A->data[i]!=x)    //若当前元素不为x，将其插入A中
+           {    A->data[k]=A->data[i];
+	  k++;		 //不等于x的元素增1
+           }
+      A->length=k;		 //顺序表A的长度等于k
+}
+
