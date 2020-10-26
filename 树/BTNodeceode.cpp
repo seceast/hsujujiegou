@@ -2,7 +2,7 @@
  * @Author: seceast
  * @Date: 2020-10-22 10:20:13
  * @LastEditors: seceast
- * @LastEditTime: 2020-10-22 15:02:38
+ * @LastEditTime: 2020-10-26 15:05:48
  */ 
 
 
@@ -62,7 +62,7 @@ void DestroyBTree(BTNode *& b){
 }
 
 //查找值为x的结点
-BTNode *FindNode(BTNode *& b,ElemType e){
+BTNode *FindNode(BTNode *& b,ElemType x){
     BTNode *p;
     if(b==NULL)
         return NULL;
