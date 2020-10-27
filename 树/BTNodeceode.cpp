@@ -2,7 +2,7 @@
  * @Author: seceast
  * @Date: 2020-10-22 10:20:13
  * @LastEditors: seceast
- * @LastEditTime: 2020-10-27 10:00:09
+ * @LastEditTime: 2020-10-27 14:38:45
  */ 
 
 
@@ -15,7 +15,7 @@
 typedef int ElemType;
 
 //链式二叉树结点类型声明
-typedef struct Node{
+typedef struct node{
     ElemType data;
     struct node *lchild;         //指向左孩子
     struct node *rchild;         //指向右孩子
@@ -27,7 +27,7 @@ void CreatBTree(BTNode *& b, char *str){
     int top=-1,k,j=0;
     char ch;
     b=NULL;
-    ch=str[i];
+    ch=str[j];
     while(ch!='\0'){
         switch (ch){
             case '(':top++;St[top]=p;k=1;break;
@@ -49,7 +49,6 @@ void CreatBTree(BTNode *& b, char *str){
         j++;
         ch=str[j];
     }
-
 }
 
 //销毁（递归）
