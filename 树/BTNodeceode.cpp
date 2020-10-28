@@ -1,8 +1,8 @@
 /*
  * @Author: seceast
  * @Date: 2020-10-22 10:20:13
- * @LastEditors: seceast
- * @LastEditTime: 2020-10-27 14:38:45
+ * @LastEditors: Seceast
+ * @LastEditTime: 2020-10-28 18:58:42
  */ 
 
 
@@ -69,11 +69,11 @@ BTNode *FindNode(BTNode *& b,ElemType x){
         return b;
     else
     {
-        p=FindNode(b->lchild,x)
+        p=FindNode(b->lchild,x);
         if(p!=NULL)
             return p;
         else
-            return FindNode(b->rchild,x)
+            return FindNode(b->rchild,x);
     }
 }
 
