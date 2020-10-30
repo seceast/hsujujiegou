@@ -1,0 +1,44 @@
+栈是一种只能在一端进行插入或删除操作的线性表   先进后出
+顺序栈四大要素
+  栈空条件：top=-1
+  栈满条件：top=MaxSize-1
+  进栈e操作：top++; 将e放在top处
+  退栈操作：从top处取出元素e; top--;
+#define MaxSize 50
+
+typedef int ElemType;
+
+typedef struct 
+{
+    ElemType data[MaxSize];
+    int top;                      //栈顶指针，顶元素的下标
+}SqStack;
+
+//初始化
+void InitStack(SqStack *& s){
+    s=(SqStack *)malloc(sizeof(SqStack));
+    s->top=-1;
+}
+
+//销毁  free（s）
+//判断空 return(s->top==-1)
+
+//进栈 ：先将顶指针加1 再将增加元素放入顶指针
+bool Push(SqStack *& s,ElemType e){
+    if(s->top==MaxSize -1);           //栈满 也是栈蛮的条件
+        return false;
+    s->top++;                         //栈顶指针加1
+    s->data[s->top] = e;              //元素额放置栈顶
+    return true;
+}
+
+//出栈
+bool Pop(SqStack *& s, ElemType &e){
+    if(s->top==-1)
+        return false;
+    e=s->data[s->top];                //取出栈顶元素
+    s->top--;                         //栈顶指针减一
+    return true;
+}
+
+//取值   和出栈类似，只是栈顶指针不需要减少

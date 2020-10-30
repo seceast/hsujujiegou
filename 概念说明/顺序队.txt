@@ -1,0 +1,46 @@
+队列  只能选取一个端点进行插入操作，另一个端点进行删除操作
+队列的主要特点是先进先出，所以又把队列称为先进先出表
+顺序队的4要素（初始时front=rear=-1）：
+	队空条件：front = rear
+	队满条件：rear = MaxSize－1
+	元素e进队：rear++; data[rear]=e;
+	元素e出队：front++; e=data[front];
+
+#define MaxSize 50
+typedef int ElemType;
+
+typedef struct {
+    ElemType data[MaxSize];
+    int front,rear;
+}SqQueue;
+
+//队空：q->front==q->rear
+//队满：q->==Maxsize-1
+
+//初始化,将头尾指针设为初始状态（-1）
+void InitQueue(SqQueue *& q){
+    q = (SqQueue *)malloc(sizeof(SqQueue));
+    q->front = q->rear = -1;
+}
+
+//销毁 free(q)
+//判断空 return(q->front == q->rear)
+
+//进队
+bool enQueue(SqQueue *& q,ElemType e){
+    if(q->rear == MaxSize - 1)             //队满
+        return false;                      
+    q->rear++;                             //队尾加1
+    q->data[q->rear] = e;                  
+    return true;
+}
+
+//出队列
+bool dequeue(SqQueue *& q, ElemType &e){
+    if(q->front==q->rear)
+        return false;
+    q->front++;
+    e = q->data[q->front];
+    return true;
+}
+

@@ -1,0 +1,106 @@
+结点的度与树的度：树中一个结点的子树的个数称为该结点的度。树中各结点的度的最大值称为树的度
+分支结点与叶结点：度不为零的结点称为非终端结点，又叫分支结点。度为零的结点称为终端结点或叶子结点
+路径与路径长度：两个结点di和dj的结点序列（di，di1，di2，…，dj）称为路径
+路径长度等于路径所通过的结点数目减1（即路径上分支数目）
+孩子结点、双亲结点和兄弟结点：在一棵树中，每个结点的后继，被称作该结点的孩子结点（或子女结点）
+该结点被称作孩子结点的双亲结点（或父母结点）。具有同一双亲的孩子结点互为兄弟结点
+结点的层次和树的高度：结点的层次从树根开始定义，根结点为第1层，它的孩子结点为第2层，以此类推
+	树中结点的最大层次称为树的高度（或树的深度）
+
+二叉树：由一个根结点和两棵互不相交的称为左子树和右子树的二叉树组成
+
+哈夫曼树：最优二叉树。
+	选取根结点的权值最小和次小的两棵二叉树作为左、右子树构造一棵新的二叉树，
+	这棵新的二叉树根结点的权值为其左、右子树根结点权值之和   之和再去找最小的结点重复构造
+	规定哈夫曼树中的左分支为0，右分支为1
+	
+#define MaxSize 100
+
+typedef int ElemType;
+
+//链式二叉树结点类型声明
+typedef struct node{
+    ElemType data;
+    struct node *lchild;         //指向左孩子
+    struct node *rchild;         //指向右孩子
+}BTNode;
+
+//创建二叉树
+void CreatBTree(BTNode *& b, char *str){
+    BTNode *St[MaxSize], *p;
+    int top=-1,k,j=0;
+    char ch;
+    b=NULL;
+    ch=str[j];
+    while(ch!='\0'){
+        switch (ch){
+            case '(':top++;St[top]=p;k=1;break;
+            case ')':top--;break;
+            case ',':k=2;break;
+            default: 
+                p=(BTNode *)malloc(sizeof(BTNode));
+                p->data=ch;
+                p->lchild=p->rchild=NULL;
+                if(b==NULL )
+                    b=p;
+                else{
+                    switch (k){
+                        case 1:St[top]->lchild=p;break;
+                        case 2:St[top]->rchild=p;break;
+                    }
+                }
+        }
+        j++;
+        ch=str[j];
+    }
+}
+
+//销毁（递归）
+void DestroyBTree(BTNode *& b){
+    if(b!=NULL){
+        DestroyBTree(b->lchild);
+        DestroyBTree(b->rchild);
+        free(b);
+    }
+}
+
+//查找值为x的结点
+BTNode *FindNode(BTNode *& b,ElemType x){
+    BTNode *p;
+    if(b==NULL)
+        return NULL;
+    if (b->data==x)
+        return b;
+    else{
+        p=FindNode(b->lchild,x)
+        if(p!=NULL)
+            return p;
+        else
+            return FindNode(b->rchild,x)
+    }
+}
+
+//求树高度
+int BTHeight(BTNode *b){
+    int lchildh,rchildh;
+    if(b==NULL) return (0);
+    else {
+        lchildh=BTHeight(b->lchild);
+        rchildh=BTHeight(b->rchild);
+        return (lchildh>rchildh) ?(lchildh+1):(rchildh+1);
+    }
+}
+
+//输出二叉树
+void DispBTree(BTNode *b){
+    if(b!=NULL){
+        printf("%c",b->data);
+        if(b->lchild!=NULL || b->rchild!=NULL){
+            printf("(");                                //有孩子时输出“（”
+            DispBTree(b->lchild);                       //递归处理左子树
+            if (b->rchild!=NULL)printf(",");            //有右孩子时输出“，”
+            DispBTree(b->rchild);                       //递归处理右孩子
+            printf(")");                                //有孩子结点时才输出“）”
+        }
+    }
+}
