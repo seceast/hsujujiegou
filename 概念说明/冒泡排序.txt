@@ -1,4 +1,10 @@
 //冒泡排序
+
+typedef struct{
+    KeyType key;
+    InfoType data;
+}RecType;
+
 void BubbleSort(RecType R[],int n){
     int i,j;
     RecType tmp;
